@@ -39,7 +39,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title
-st.title("📈 BTC Trading Strategy Dashboard")
+st.title("📈 BTC Trading Strategy Dashboard (Cronjob)")
 st.markdown("**Asian Hours Strategy Backtest & Live Signals**")
 
 # ===== REFRESH BUTTON =====

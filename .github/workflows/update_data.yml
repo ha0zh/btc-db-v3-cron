@@ -1,10 +1,9 @@
 name: Update BTC Data Hourly
 
 on:
-  schedule:
-    # Run every hour at minute 5 (e.g., 1:05, 2:05, etc.)
-    - cron: '5 * * * *'
-  workflow_dispatch:  # Allow manual trigger
+  repository_dispatch:
+    types: [scheduled-update]
+  workflow_dispatch:
 
 jobs:
   update-data:

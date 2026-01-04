@@ -1,0 +1,1324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTC Trading Strategy Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding: 20px; background-color: #f8f9fa; }
+        .card { margin-bottom: 20px; }
+        .table { font-size: 0.85rem; }
+        h1 { color: #2c3e50; }
+        .last-update { color: #6c757d; font-size: 0.9rem; }
+        .metric-value { font-size: 1.5rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h1>📈 BTC Trading Strategy Dashboard</h1>
+        <p class="last-update">Last updated: 2026-01-04 09:19:04 UTC</p>
+        
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card text-white bg-primary">
+                    <div class="card-body text-center">
+                        <h5>Total Trades</h5>
+                        <p class="metric-value">1238</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-success">
+                    <div class="card-body text-center">
+                        <h5>Win Rate</h5>
+                        <p class="metric-value">28%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-info">
+                    <div class="card-body text-center">
+                        <h5>Cumulative Return</h5>
+                        <p class="metric-value">1,542%</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body text-center">
+                        <h5>Max Drawdown</h5>
+                        <p class="metric-value">11%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>📊 Strategy Metrics Summary</h4></div>
+            <div class="card-body table-responsive"><table border="1" class="dataframe table table-striped">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Variant</th>
+      <th>Capital Risked</th>
+      <th>Trades</th>
+      <th>Win-rate %</th>
+      <th>Win/Loss ratio</th>
+      <th>Cum return %</th>
+      <th>Max DD %</th>
+      <th>Max consec losses</th>
+      <th>Max consec wins</th>
+      <th>Win-rate 30d %</th>
+      <th>Trades 30d</th>
+      <th>PnL 30d</th>
+      <th>Win-rate 7d %</th>
+      <th>Trades 7d</th>
+      <th>PnL 7d</th>
+      <th>Win-rate 3m %</th>
+      <th>Trades 3m</th>
+      <th>PnL 3m</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>5.0%</td>
+      <td>1238</td>
+      <td>28.0</td>
+      <td>3.0</td>
+      <td>1542.0</td>
+      <td>11.0</td>
+      <td>26</td>
+      <td>7</td>
+      <td>30.0</td>
+      <td>10</td>
+      <td>-1916.0</td>
+      <td>30.0</td>
+      <td>10</td>
+      <td>-1916.0</td>
+      <td>30.0</td>
+      <td>10</td>
+      <td>-1916.0</td>
+    </tr>
+  </tbody>
+</table></div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>🔴 LIVE POSITIONS</h4></div>
+            <div class="card-body">
+        <div class="alert alert-success">
+            <h4>📈 LONG Position Open</h4>
+            <p><strong>Entry:</strong> $91,348 | 
+               <strong>Stop:</strong> $90,891 | 
+               <strong>Target:</strong> $92,182</p>
+            <p><strong>Entry Time:</strong> 2026-01-04 00:00:00</p>
+        </div>
+        </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>🎯 Signal Conditions (Last 12 Hours)</h4></div>
+            <div class="card-body table-responsive"><table border="1" class="dataframe table table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>close</th>
+      <th>potential_side</th>
+      <th>below_lower_MR_long</th>
+      <th>above_upper_MR_short</th>
+      <th>price_above_high3</th>
+      <th>price_below_low3</th>
+      <th>rsi_gt_60_BO_long</th>
+      <th>rsi_lt_40_BO_short</th>
+      <th>potential_stop</th>
+      <th>atr_gt_median_vol</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-01-04 06:00:00</th>
+      <td>90,592</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>90,592</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 07:00:00</th>
+      <td>90,633</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>90,633</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 08:00:00</th>
+      <td>91,348</td>
+      <td>-1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,804</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 09:00:00</th>
+      <td>91,237</td>
+      <td>-1</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,693</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 10:00:00</th>
+      <td>91,135</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,135</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 11:00:00</th>
+      <td>91,236</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,236</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 12:00:00</th>
+      <td>91,408</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,408</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 13:00:00</th>
+      <td>91,489</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,489</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 14:00:00</th>
+      <td>91,241</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,241</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 15:00:00</th>
+      <td>91,524</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,524</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 16:00:00</th>
+      <td>91,368</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,368</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 17:00:00</th>
+      <td>91,373</td>
+      <td>0</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+      <td>False</td>
+      <td>91,373</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table></div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>📈 Technical Indicators (Last 12 Hours)</h4></div>
+            <div class="card-body table-responsive"><table border="1" class="dataframe table table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>open</th>
+      <th>high</th>
+      <th>low</th>
+      <th>close</th>
+      <th>volume</th>
+      <th>sma20</th>
+      <th>std20</th>
+      <th>upper_band</th>
+      <th>lower_band</th>
+      <th>rsi14</th>
+      <th>high_3h</th>
+      <th>low_3h</th>
+      <th>atr20</th>
+      <th>atr20_median_all</th>
+      <th>atr20_roll_med180</th>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2026-01-04 06:00:00</th>
+      <td>90,562</td>
+      <td>90,730</td>
+      <td>90,495</td>
+      <td>90,592</td>
+      <td>66</td>
+      <td>90,055</td>
+      <td>273</td>
+      <td>90,601</td>
+      <td>89,509</td>
+      <td>82</td>
+      <td>90,736</td>
+      <td>90,026</td>
+      <td>228</td>
+      <td>232</td>
+      <td>430</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 07:00:00</th>
+      <td>90,592</td>
+      <td>90,699</td>
+      <td>90,470</td>
+      <td>90,633</td>
+      <td>70</td>
+      <td>90,070</td>
+      <td>297</td>
+      <td>90,663</td>
+      <td>89,477</td>
+      <td>81</td>
+      <td>90,736</td>
+      <td>90,026</td>
+      <td>220</td>
+      <td>232</td>
+      <td>417</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 08:00:00</th>
+      <td>90,633</td>
+      <td>91,613</td>
+      <td>90,633</td>
+      <td>91,348</td>
+      <td>601</td>
+      <td>90,129</td>
+      <td>412</td>
+      <td>90,953</td>
+      <td>89,306</td>
+      <td>89</td>
+      <td>90,736</td>
+      <td>90,322</td>
+      <td>278</td>
+      <td>232</td>
+      <td>409</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 09:00:00</th>
+      <td>91,348</td>
+      <td>91,480</td>
+      <td>91,005</td>
+      <td>91,237</td>
+      <td>135</td>
+      <td>90,189</td>
+      <td>480</td>
+      <td>91,149</td>
+      <td>89,230</td>
+      <td>85</td>
+      <td>91,613</td>
+      <td>90,470</td>
+      <td>305</td>
+      <td>232</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 10:00:00</th>
+      <td>91,237</td>
+      <td>91,298</td>
+      <td>91,084</td>
+      <td>91,135</td>
+      <td>104</td>
+      <td>90,253</td>
+      <td>517</td>
+      <td>91,287</td>
+      <td>89,218</td>
+      <td>78</td>
+      <td>91,613</td>
+      <td>90,470</td>
+      <td>293</td>
+      <td>232</td>
+      <td>405</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 11:00:00</th>
+      <td>91,135</td>
+      <td>91,357</td>
+      <td>91,087</td>
+      <td>91,236</td>
+      <td>152</td>
+      <td>90,335</td>
+      <td>536</td>
+      <td>91,408</td>
+      <td>89,262</td>
+      <td>81</td>
+      <td>91,613</td>
+      <td>90,633</td>
+      <td>303</td>
+      <td>232</td>
+      <td>403</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 12:00:00</th>
+      <td>91,236</td>
+      <td>91,585</td>
+      <td>91,192</td>
+      <td>91,408</td>
+      <td>142</td>
+      <td>90,422</td>
+      <td>563</td>
+      <td>91,549</td>
+      <td>89,295</td>
+      <td>81</td>
+      <td>91,480</td>
+      <td>91,005</td>
+      <td>311</td>
+      <td>232</td>
+      <td>402</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 13:00:00</th>
+      <td>91,408</td>
+      <td>91,500</td>
+      <td>91,355</td>
+      <td>91,489</td>
+      <td>131</td>
+      <td>90,507</td>
+      <td>590</td>
+      <td>91,688</td>
+      <td>89,326</td>
+      <td>88</td>
+      <td>91,585</td>
+      <td>91,084</td>
+      <td>310</td>
+      <td>232</td>
+      <td>398</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 14:00:00</th>
+      <td>91,489</td>
+      <td>91,820</td>
+      <td>91,241</td>
+      <td>91,241</td>
+      <td>258</td>
+      <td>90,581</td>
+      <td>584</td>
+      <td>91,750</td>
+      <td>89,413</td>
+      <td>77</td>
+      <td>91,585</td>
+      <td>91,087</td>
+      <td>330</td>
+      <td>232</td>
+      <td>394</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 15:00:00</th>
+      <td>91,241</td>
+      <td>91,542</td>
+      <td>91,221</td>
+      <td>91,524</td>
+      <td>214</td>
+      <td>90,670</td>
+      <td>586</td>
+      <td>91,843</td>
+      <td>89,497</td>
+      <td>80</td>
+      <td>91,820</td>
+      <td>91,192</td>
+      <td>346</td>
+      <td>232</td>
+      <td>388</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 16:00:00</th>
+      <td>91,524</td>
+      <td>91,535</td>
+      <td>91,181</td>
+      <td>91,368</td>
+      <td>534</td>
+      <td>90,736</td>
+      <td>587</td>
+      <td>91,909</td>
+      <td>89,563</td>
+      <td>75</td>
+      <td>91,820</td>
+      <td>91,221</td>
+      <td>360</td>
+      <td>232</td>
+      <td>383</td>
+    </tr>
+    <tr>
+      <th>2026-01-04 17:00:00</th>
+      <td>91,368</td>
+      <td>91,424</td>
+      <td>91,250</td>
+      <td>91,373</td>
+      <td>26</td>
+      <td>90,804</td>
+      <td>577</td>
+      <td>91,958</td>
+      <td>89,651</td>
+      <td>75</td>
+      <td>91,820</td>
+      <td>91,181</td>
+      <td>366</td>
+      <td>232</td>
+      <td>383</td>
+    </tr>
+  </tbody>
+</table></div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>📝 Trade Log (Last 59 Trades)</h4></div>
+            <div class="card-body table-responsive" style="max-height: 600px; overflow-y: auto;"><table border="1" class="dataframe table table-striped table-sm">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variant</th>
+      <th>side</th>
+      <th>entry_time</th>
+      <th>entry_price</th>
+      <th>stop</th>
+      <th>target</th>
+      <th>size</th>
+      <th>exit_time</th>
+      <th>exit_price</th>
+      <th>pnl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-07-25 05:00:00</td>
+      <td>115,500</td>
+      <td>114,922</td>
+      <td>117,480</td>
+      <td>8</td>
+      <td>2025-07-25 07:00:00</td>
+      <td>114,922</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-07-26 08:00:00</td>
+      <td>117,557</td>
+      <td>116,969</td>
+      <td>118,555</td>
+      <td>8</td>
+      <td>2025-07-26 15:00:00</td>
+      <td>118,130</td>
+      <td>4,874</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-07-27 02:00:00</td>
+      <td>118,310</td>
+      <td>117,718</td>
+      <td>119,031</td>
+      <td>8</td>
+      <td>2025-07-27 15:00:00</td>
+      <td>118,586</td>
+      <td>2,331</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-07-30 06:00:00</td>
+      <td>118,287</td>
+      <td>117,696</td>
+      <td>119,593</td>
+      <td>8</td>
+      <td>2025-07-30 11:00:00</td>
+      <td>117,696</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-07-31 06:00:00</td>
+      <td>118,692</td>
+      <td>118,098</td>
+      <td>120,293</td>
+      <td>8</td>
+      <td>2025-07-31 13:00:00</td>
+      <td>118,098</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-01 01:00:00</td>
+      <td>115,332</td>
+      <td>114,755</td>
+      <td>117,392</td>
+      <td>8</td>
+      <td>2025-08-01 07:00:00</td>
+      <td>114,755</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-01 08:00:00</td>
+      <td>114,616</td>
+      <td>115,189</td>
+      <td>112,517</td>
+      <td>8</td>
+      <td>2025-08-01 09:00:00</td>
+      <td>115,189</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-02 06:00:00</td>
+      <td>113,698</td>
+      <td>114,266</td>
+      <td>111,990</td>
+      <td>8</td>
+      <td>2025-08-02 15:00:00</td>
+      <td>112,841</td>
+      <td>7,539</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-03 07:00:00</td>
+      <td>113,700</td>
+      <td>113,132</td>
+      <td>115,221</td>
+      <td>8</td>
+      <td>2025-08-03 15:00:00</td>
+      <td>113,959</td>
+      <td>2,278</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-04 00:00:00</td>
+      <td>114,900</td>
+      <td>114,325</td>
+      <td>116,068</td>
+      <td>8</td>
+      <td>2025-08-04 05:00:00</td>
+      <td>114,325</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-05 03:00:00</td>
+      <td>114,257</td>
+      <td>114,828</td>
+      <td>112,971</td>
+      <td>8</td>
+      <td>2025-08-05 10:00:00</td>
+      <td>114,828</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-06 05:00:00</td>
+      <td>114,148</td>
+      <td>113,577</td>
+      <td>115,489</td>
+      <td>8</td>
+      <td>2025-08-06 15:00:00</td>
+      <td>115,414</td>
+      <td>11,090</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-07 04:00:00</td>
+      <td>114,350</td>
+      <td>114,921</td>
+      <td>113,195</td>
+      <td>8</td>
+      <td>2025-08-07 08:00:00</td>
+      <td>114,921</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-07 10:00:00</td>
+      <td>116,347</td>
+      <td>115,765</td>
+      <td>117,505</td>
+      <td>8</td>
+      <td>2025-08-07 15:00:00</td>
+      <td>116,690</td>
+      <td>2,945</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-09 03:00:00</td>
+      <td>116,384</td>
+      <td>116,966</td>
+      <td>115,240</td>
+      <td>8</td>
+      <td>2025-08-09 05:00:00</td>
+      <td>116,966</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-09 08:00:00</td>
+      <td>117,107</td>
+      <td>116,521</td>
+      <td>117,993</td>
+      <td>8</td>
+      <td>2025-08-09 15:00:00</td>
+      <td>116,892</td>
+      <td>-1,829</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-10 03:00:00</td>
+      <td>118,500</td>
+      <td>117,908</td>
+      <td>119,660</td>
+      <td>8</td>
+      <td>2025-08-10 05:00:00</td>
+      <td>117,908</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-11 01:00:00</td>
+      <td>119,988</td>
+      <td>119,388</td>
+      <td>121,393</td>
+      <td>8</td>
+      <td>2025-08-11 02:00:00</td>
+      <td>121,393</td>
+      <td>11,706</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-11 03:00:00</td>
+      <td>121,729</td>
+      <td>122,338</td>
+      <td>119,951</td>
+      <td>8</td>
+      <td>2025-08-11 12:00:00</td>
+      <td>119,951</td>
+      <td>14,607</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-12 09:00:00</td>
+      <td>118,408</td>
+      <td>119,000</td>
+      <td>116,973</td>
+      <td>8</td>
+      <td>2025-08-12 12:00:00</td>
+      <td>119,000</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-13 05:00:00</td>
+      <td>119,071</td>
+      <td>119,666</td>
+      <td>117,353</td>
+      <td>8</td>
+      <td>2025-08-13 08:00:00</td>
+      <td>119,666</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-13 11:00:00</td>
+      <td>120,570</td>
+      <td>119,968</td>
+      <td>121,967</td>
+      <td>8</td>
+      <td>2025-08-13 13:00:00</td>
+      <td>121,967</td>
+      <td>11,583</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-14 00:00:00</td>
+      <td>123,848</td>
+      <td>123,229</td>
+      <td>126,542</td>
+      <td>8</td>
+      <td>2025-08-14 04:00:00</td>
+      <td>123,229</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-14 10:00:00</td>
+      <td>120,933</td>
+      <td>121,538</td>
+      <td>118,778</td>
+      <td>8</td>
+      <td>2025-08-14 12:00:00</td>
+      <td>118,778</td>
+      <td>17,820</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-17 08:00:00</td>
+      <td>118,366</td>
+      <td>117,774</td>
+      <td>119,151</td>
+      <td>8</td>
+      <td>2025-08-17 15:00:00</td>
+      <td>118,246</td>
+      <td>-1,013</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-18 00:00:00</td>
+      <td>117,290</td>
+      <td>117,877</td>
+      <td>116,222</td>
+      <td>8</td>
+      <td>2025-08-18 01:00:00</td>
+      <td>116,222</td>
+      <td>9,105</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-18 02:00:00</td>
+      <td>115,453</td>
+      <td>114,876</td>
+      <td>116,938</td>
+      <td>8</td>
+      <td>2025-08-18 09:00:00</td>
+      <td>114,876</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-20 08:00:00</td>
+      <td>114,010</td>
+      <td>113,440</td>
+      <td>115,392</td>
+      <td>8</td>
+      <td>2025-08-20 11:00:00</td>
+      <td>113,440</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-21 09:00:00</td>
+      <td>113,377</td>
+      <td>113,944</td>
+      <td>111,989</td>
+      <td>8</td>
+      <td>2025-08-21 14:00:00</td>
+      <td>113,944</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-23 10:00:00</td>
+      <td>115,576</td>
+      <td>116,154</td>
+      <td>114,394</td>
+      <td>8</td>
+      <td>2025-08-23 15:00:00</td>
+      <td>114,813</td>
+      <td>6,600</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-25 05:00:00</td>
+      <td>112,297</td>
+      <td>112,859</td>
+      <td>109,476</td>
+      <td>8</td>
+      <td>2025-08-25 15:00:00</td>
+      <td>112,142</td>
+      <td>1,381</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-26 00:00:00</td>
+      <td>109,050</td>
+      <td>109,595</td>
+      <td>106,297</td>
+      <td>9</td>
+      <td>2025-08-26 01:00:00</td>
+      <td>109,595</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-28 04:00:00</td>
+      <td>112,931</td>
+      <td>112,367</td>
+      <td>115,075</td>
+      <td>8</td>
+      <td>2025-08-28 15:00:00</td>
+      <td>112,633</td>
+      <td>-2,640</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-29 01:00:00</td>
+      <td>111,425</td>
+      <td>111,982</td>
+      <td>109,658</td>
+      <td>8</td>
+      <td>2025-08-29 08:00:00</td>
+      <td>109,658</td>
+      <td>15,856</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-29 09:00:00</td>
+      <td>109,711</td>
+      <td>109,162</td>
+      <td>111,335</td>
+      <td>9</td>
+      <td>2025-08-29 12:00:00</td>
+      <td>111,335</td>
+      <td>14,805</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-08-30 01:00:00</td>
+      <td>107,405</td>
+      <td>107,942</td>
+      <td>104,949</td>
+      <td>9</td>
+      <td>2025-08-30 03:00:00</td>
+      <td>107,942</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-08-31 00:00:00</td>
+      <td>109,340</td>
+      <td>108,793</td>
+      <td>110,240</td>
+      <td>9</td>
+      <td>2025-08-31 04:00:00</td>
+      <td>108,793</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-02 02:00:00</td>
+      <td>110,210</td>
+      <td>109,659</td>
+      <td>112,385</td>
+      <td>9</td>
+      <td>2025-09-02 11:00:00</td>
+      <td>109,659</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-09-04 04:00:00</td>
+      <td>110,871</td>
+      <td>111,425</td>
+      <td>109,340</td>
+      <td>9</td>
+      <td>2025-09-04 15:00:00</td>
+      <td>109,448</td>
+      <td>12,833</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-05 05:00:00</td>
+      <td>111,524</td>
+      <td>110,967</td>
+      <td>113,148</td>
+      <td>8</td>
+      <td>2025-09-05 12:00:00</td>
+      <td>113,148</td>
+      <td>14,559</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-09-06 09:00:00</td>
+      <td>110,653</td>
+      <td>111,206</td>
+      <td>109,615</td>
+      <td>9</td>
+      <td>2025-09-06 15:00:00</td>
+      <td>110,324</td>
+      <td>2,973</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-07 08:00:00</td>
+      <td>111,023</td>
+      <td>110,468</td>
+      <td>111,747</td>
+      <td>9</td>
+      <td>2025-09-07 15:00:00</td>
+      <td>111,276</td>
+      <td>2,282</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-08 08:00:00</td>
+      <td>111,640</td>
+      <td>111,082</td>
+      <td>112,840</td>
+      <td>8</td>
+      <td>2025-09-08 15:00:00</td>
+      <td>112,574</td>
+      <td>8,363</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-09-09 01:00:00</td>
+      <td>111,313</td>
+      <td>111,870</td>
+      <td>109,989</td>
+      <td>8</td>
+      <td>2025-09-09 04:00:00</td>
+      <td>111,870</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-20 07:00:00</td>
+      <td>115,910</td>
+      <td>115,330</td>
+      <td>117,923</td>
+      <td>8</td>
+      <td>2025-09-20 15:00:00</td>
+      <td>115,928</td>
+      <td>161</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-22 00:00:00</td>
+      <td>114,336</td>
+      <td>113,764</td>
+      <td>115,243</td>
+      <td>8</td>
+      <td>2025-09-22 05:00:00</td>
+      <td>113,764</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-22 06:00:00</td>
+      <td>112,749</td>
+      <td>112,185</td>
+      <td>114,451</td>
+      <td>8</td>
+      <td>2025-09-22 09:00:00</td>
+      <td>112,185</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-09-23 01:00:00</td>
+      <td>112,115</td>
+      <td>112,676</td>
+      <td>110,626</td>
+      <td>8</td>
+      <td>2025-09-23 05:00:00</td>
+      <td>112,676</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2025-09-24 03:00:00</td>
+      <td>111,640</td>
+      <td>112,198</td>
+      <td>110,060</td>
+      <td>8</td>
+      <td>2025-09-24 04:00:00</td>
+      <td>112,198</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-09-24 10:00:00</td>
+      <td>112,804</td>
+      <td>112,240</td>
+      <td>114,141</td>
+      <td>8</td>
+      <td>2025-12-28 09:00:00</td>
+      <td>112,240</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-12-28 10:00:00</td>
+      <td>87,829</td>
+      <td>87,390</td>
+      <td>94,478</td>
+      <td>11</td>
+      <td>2025-12-28 15:00:00</td>
+      <td>87,798</td>
+      <td>-353</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-12-29 00:00:00</td>
+      <td>88,262</td>
+      <td>87,821</td>
+      <td>89,035</td>
+      <td>11</td>
+      <td>2025-12-29 02:00:00</td>
+      <td>89,035</td>
+      <td>8,751</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-12-29 03:00:00</td>
+      <td>90,092</td>
+      <td>89,641</td>
+      <td>91,360</td>
+      <td>11</td>
+      <td>2025-12-29 07:00:00</td>
+      <td>89,641</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-12-30 08:00:00</td>
+      <td>87,827</td>
+      <td>87,388</td>
+      <td>88,868</td>
+      <td>11</td>
+      <td>2025-12-30 14:00:00</td>
+      <td>88,868</td>
+      <td>11,850</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2025-12-31 01:00:00</td>
+      <td>88,605</td>
+      <td>88,162</td>
+      <td>90,137</td>
+      <td>11</td>
+      <td>2025-12-31 15:00:00</td>
+      <td>87,945</td>
+      <td>-7,445</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2026-01-01 04:00:00</td>
+      <td>87,587</td>
+      <td>88,025</td>
+      <td>86,620</td>
+      <td>11</td>
+      <td>2026-01-01 12:00:00</td>
+      <td>88,025</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2026-01-02 03:00:00</td>
+      <td>88,946</td>
+      <td>88,502</td>
+      <td>89,861</td>
+      <td>11</td>
+      <td>2026-01-02 10:00:00</td>
+      <td>89,861</td>
+      <td>10,282</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>long</td>
+      <td>2026-01-03 02:00:00</td>
+      <td>90,336</td>
+      <td>89,885</td>
+      <td>92,348</td>
+      <td>11</td>
+      <td>2026-01-03 06:00:00</td>
+      <td>89,885</td>
+      <td>-5,000</td>
+    </tr>
+    <tr>
+      <td>0.50% stop, ATR×3.0</td>
+      <td>short</td>
+      <td>2026-01-03 07:00:00</td>
+      <td>89,583</td>
+      <td>90,031</td>
+      <td>88,379</td>
+      <td>11</td>
+      <td>2026-01-03 12:00:00</td>
+      <td>90,031</td>
+      <td>-5,000</td>
+    </tr>
+  </tbody>
+</table></div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header"><h4>📖 Strategy Rules</h4></div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <tr><td><strong>Session</strong></td><td>00:00–11:00 UTC (Asia hours)</td></tr>
+                    <tr><td><strong>Volatility Filter</strong></td><td>ATR-20 > median ATR-20</td></tr>
+                    <tr><td><strong>Mean-Reversion Long</strong></td><td>Price < lower BB AND RSI-14 < 30</td></tr>
+                    <tr><td><strong>Mean-Reversion Short</strong></td><td>Price > upper BB AND RSI-14 > 70</td></tr>
+                    <tr><td><strong>Breakout Long</strong></td><td>Price > 3h high AND RSI-14 > 60</td></tr>
+                    <tr><td><strong>Breakout Short</strong></td><td>Price < 3h low AND RSI-14 < 40</td></tr>
+                    <tr><td><strong>Stop-Loss</strong></td><td>0.50% from entry</td></tr>
+                    <tr><td><strong>Profit-Take</strong></td><td>Entry ± 3.0 × ATR-20</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

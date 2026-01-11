@@ -238,10 +238,22 @@ def run_backtest(df, atr_med):
             "tp_price": round(open_trade["target"], 0)
         }
     
-    # Equity curve (last 500 points for chart)
+    # Equity curve (last 500 points for chart - trade number based)
     equity_curve = [float(x) for x in list(eq_array)[-500:]]
-    
-    return trade_df, metrics, live_position, equity_curve
+
+    # Time-based equity curve (all trades with timestamps)
+    equity_curve_ts = []
+    cumulative_equity = INITIAL_EQ
+    for trade in trade_log:
+        cumulative_equity = cumulative_equity + trade['pnl'] if len(equity_curve_ts) == 0 else equity_curve_ts[-1]['equity'] + trade['pnl']
+        # Store in GMT+8 format (the original data is in UTC, convert to GMT+8 for display)
+        exit_time = trade['exit_time']
+        equity_curve_ts.append({
+            'exit_time': exit_time,
+            'equity': cumulative_equity
+        })
+
+    return trade_df, metrics, live_position, equity_curve, equity_curve_ts
 
 def calculate_conditions(df):
     """Calculate signal conditions"""
@@ -293,7 +305,7 @@ def main():
     
     # Run backtest
     log("Running backtest...")
-    trade_log_df, metrics, live_position, equity_curve = run_backtest(df, atr_med)
+    trade_log_df, metrics, live_position, equity_curve, equity_curve_ts = run_backtest(df, atr_med)
     log(f"✓ Backtest complete: {metrics['Trades']} trades")
     
     # Calculate conditions
@@ -334,6 +346,12 @@ def main():
     # 4. Indicators CSV (last 12 rows)
     indicators.to_csv(f"{RESULTS_DIR}/indicators.csv")
     log(f"✓ Saved {RESULTS_DIR}/indicators.csv")
+
+    # 5. Equity curve with timestamps CSV (all trades)
+    if equity_curve_ts:
+        equity_df = pd.DataFrame(equity_curve_ts)
+        equity_df.to_csv(f"{RESULTS_DIR}/equity_curve_ts.csv", index=False)
+        log(f"✓ Saved {RESULTS_DIR}/equity_curve_ts.csv ({len(equity_curve_ts)} points)")
     
     # Print summary
     log("")

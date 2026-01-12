@@ -28,6 +28,62 @@ GITHUB_RAW_BASE = f"https://raw.githubusercontent.com/{GITHUB_USERNAME}/{GITHUB_
 # Timezone for display
 GMT8 = pytz.timezone('Asia/Singapore')
 
+# Binance Futures API endpoints
+BINANCE_FUTURES_PRICE_URL = "https://fapi.binance.com/fapi/v1/ticker/price"
+BINANCE_FUTURES_KLINES_URL = "https://fapi.binance.com/fapi/v1/klines"
+
+def fetch_btc_price():
+    """Fetch current BTC-USDT perpetual price from Binance Futures"""
+    try:
+        response = requests.get(
+            BINANCE_FUTURES_PRICE_URL,
+            params={"symbol": "BTCUSDT"},
+            timeout=10
+        )
+        if response.status_code == 200:
+            data = response.json()
+            return float(data['price']), None
+        return None, f"HTTP {response.status_code}"
+    except Exception as e:
+        return None, str(e)
+
+def fetch_btc_klines(interval='1m', limit=1440):
+    """Fetch BTC-USDT perpetual klines from Binance Futures
+
+    Intervals: 1m, 3m, 5m, 15m, 30m, 1h, 2h, 4h, 6h, 8h, 12h, 1d
+    For 24 hours: 1m=1440, 3m=480, 15m=96, 1h=24, 4h=6
+    """
+    try:
+        response = requests.get(
+            BINANCE_FUTURES_KLINES_URL,
+            params={
+                "symbol": "BTCUSDT",
+                "interval": interval,
+                "limit": limit
+            },
+            timeout=15
+        )
+        if response.status_code == 200:
+            data = response.json()
+            # Kline format: [open_time, open, high, low, close, volume, close_time, ...]
+            df = pd.DataFrame(data, columns=[
+                'open_time', 'open', 'high', 'low', 'close', 'volume',
+                'close_time', 'quote_volume', 'trades', 'taker_buy_base',
+                'taker_buy_quote', 'ignore'
+            ])
+            df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+            df['close_time'] = pd.to_datetime(df['close_time'], unit='ms')
+            # Convert to GMT+8
+            df['time_gmt8'] = df['open_time'] + pd.Timedelta(hours=8)
+            df['close'] = df['close'].astype(float)
+            df['open'] = df['open'].astype(float)
+            df['high'] = df['high'].astype(float)
+            df['low'] = df['low'].astype(float)
+            return df, None
+        return None, f"HTTP {response.status_code}"
+    except Exception as e:
+        return None, str(e)
+
 def convert_utc_to_gmt8(utc_str):
     """Convert UTC timestamp string to GMT+8"""
     if not utc_str or utc_str == 'Unknown':
@@ -219,6 +275,62 @@ if not metrics:
     - Repo: `{GITHUB_REPO}`
     """)
     st.stop()
+
+# ===== LIVE BTC PRICE =====
+st.subheader("💰 BTC-USDT Perpetual (Live)")
+
+# Fetch current price
+btc_price, price_error = fetch_btc_price()
+
+if btc_price:
+    # Display current price prominently
+    price_col1, price_col2 = st.columns([1, 2])
+    with price_col1:
+        st.metric("Current Price", f"${btc_price:,.2f}")
+    with price_col2:
+        current_time_gmt8 = datetime.now(pytz.UTC).astimezone(GMT8).strftime('%Y-%m-%d %H:%M:%S')
+        st.caption(f"Last updated: {current_time_gmt8} GMT+8")
+        st.caption("Click 'Refresh' button in sidebar to update")
+else:
+    st.warning(f"Could not fetch BTC price: {price_error}")
+
+# Price chart section
+st.markdown("##### 24-Hour Price Chart")
+
+# Interval selector
+interval_options = {
+    '1 min': ('1m', 1440),
+    '3 min': ('3m', 480),
+    '15 min': ('15m', 96),
+    '1 hour': ('1h', 24),
+    '4 hour': ('4h', 6)
+}
+selected_interval = st.selectbox(
+    'Interval',
+    list(interval_options.keys()),
+    index=2,  # Default to 15 min
+    key='btc_interval'
+)
+
+interval_code, limit = interval_options[selected_interval]
+klines_df, klines_error = fetch_btc_klines(interval=interval_code, limit=limit)
+
+if klines_df is not None and not klines_df.empty:
+    # Create chart data
+    chart_df = klines_df[['time_gmt8', 'close']].copy()
+    chart_df = chart_df.set_index('time_gmt8')
+    chart_df.columns = ['Price']
+
+    st.line_chart(chart_df)
+
+    # Show price range info
+    high_24h = klines_df['high'].max()
+    low_24h = klines_df['low'].min()
+    st.caption(f"24h High: ${high_24h:,.2f} | 24h Low: ${low_24h:,.2f} | Range: ${high_24h - low_24h:,.2f}")
+else:
+    st.warning(f"Could not fetch price chart data: {klines_error}")
+
+st.markdown("---")
 
 # ===== KEY METRICS =====
 st.subheader("📊 Strategy Metrics Summary")

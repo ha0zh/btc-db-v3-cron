@@ -106,6 +106,7 @@ def load_results():
         'live_position': None,
         'equity_curve': [],
         'equity_curve_ts': pd.DataFrame(),
+        'btc_price': {},
         'last_updated': 'Unknown',
         'data_timestamp': 'Unknown',
         'trade_log': pd.DataFrame(),
@@ -168,6 +169,16 @@ def load_results():
         except Exception as e:
             results['debug_messages'].append(f"  → Equity curve CSV parse error: {e}")
 
+    # Load BTC price data
+    btc_price_text, msg = fetch_from_github("backtest_results/btc_price.json")
+    results['debug_messages'].append(msg)
+    if btc_price_text:
+        try:
+            results['btc_price'] = json.loads(btc_price_text)
+            results['debug_messages'].append(f"  → BTC price loaded: ${results['btc_price'].get('current_price', 0):,.2f}")
+        except Exception as e:
+            results['debug_messages'].append(f"  → BTC price JSON parse error: {e}")
+
     return results
 
 # ===== LOAD DATA =====
@@ -179,6 +190,7 @@ conditions = results['conditions']
 indicators = results['indicators']
 equity_curve = results['equity_curve']
 equity_curve_ts = results['equity_curve_ts']
+btc_price_data = results['btc_price']
 
 # ===== DEBUG INFO =====
 if show_debug:
@@ -219,6 +231,67 @@ if not metrics:
     - Repo: `{GITHUB_REPO}`
     """)
     st.stop()
+
+# ===== LIVE BTC PRICE =====
+st.subheader("💰 BTC-USDT Perpetual")
+
+# Display current price from loaded data
+btc_price = btc_price_data.get('current_price')
+price_updated = btc_price_data.get('price_updated', 'Unknown')
+price_updated_gmt8 = convert_utc_to_gmt8(price_updated)
+
+if btc_price:
+    # Display current price prominently
+    price_col1, price_col2 = st.columns([1, 2])
+    with price_col1:
+        st.metric("Current Price", f"${btc_price:,.2f}")
+    with price_col2:
+        st.caption(f"Price as of: {price_updated_gmt8}")
+        st.caption("Data updates hourly via cron job. Click 'Refresh' to reload.")
+else:
+    st.warning("BTC price data not available. Run the backtest cron job to fetch price data.")
+
+# Price chart section
+st.markdown("##### 24-Hour Price Chart")
+
+# Interval selector
+interval_options = {
+    '1 min': '1m',
+    '3 min': '3m',
+    '15 min': '15m',
+    '1 hour': '1h',
+    '4 hour': '4h'
+}
+selected_interval = st.selectbox(
+    'Interval',
+    list(interval_options.keys()),
+    index=2,  # Default to 15 min
+    key='btc_interval'
+)
+
+interval_code = interval_options[selected_interval]
+klines_data = btc_price_data.get('klines', {}).get(interval_code, [])
+
+if klines_data:
+    # Convert klines to DataFrame
+    klines_df = pd.DataFrame(klines_data)
+    klines_df['time_gmt8'] = pd.to_datetime(klines_df['open_time'], unit='ms') + pd.Timedelta(hours=8)
+
+    # Create chart data
+    chart_df = klines_df[['time_gmt8', 'close']].copy()
+    chart_df = chart_df.set_index('time_gmt8')
+    chart_df.columns = ['Price']
+
+    st.line_chart(chart_df)
+
+    # Show price range info
+    high_24h = klines_df['high'].max()
+    low_24h = klines_df['low'].min()
+    st.caption(f"24h High: ${high_24h:,.2f} | 24h Low: ${low_24h:,.2f} | Range: ${high_24h - low_24h:,.2f}")
+else:
+    st.info("Price chart data not available. Run the backtest cron job to fetch kline data.")
+
+st.markdown("---")
 
 # ===== KEY METRICS =====
 st.subheader("📊 Strategy Metrics Summary")

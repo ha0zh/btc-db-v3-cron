@@ -101,12 +101,12 @@ def fetch_btc_klines_bybit(interval='15', limit=96):
                 if klines:
                     # Bybit returns: [startTime, openPrice, highPrice, lowPrice, closePrice, volume, turnover]
                     df = pd.DataFrame(klines, columns=[
-                        'open_time', 'open', 'high', 'low', 'close', 'volume', 'turnover'
+                        'open_time', 'open', 'high', 'low', 'close', 'volume_btc', 'volume'
                     ])
                     df['open_time'] = pd.to_datetime(df['open_time'].astype(int), unit='ms')
                     # Convert to GMT+8
                     df['time_gmt8'] = df['open_time'] + pd.Timedelta(hours=8)
-                    for col in ['open', 'high', 'low', 'close']:
+                    for col in ['open', 'high', 'low', 'close', 'volume']:
                         df[col] = df[col].astype(float)
                     # Sort ascending (Bybit returns newest first)
                     df = df.sort_values('time_gmt8')
@@ -137,13 +137,13 @@ def fetch_btc_klines_okx(interval='1H', limit=96):
                 if klines:
                     # OKX returns: [ts, o, h, l, c, vol, volCcy, volCcyQuote, confirm]
                     df = pd.DataFrame(klines, columns=[
-                        'open_time', 'open', 'high', 'low', 'close', 'volume',
-                        'volCcy', 'volCcyQuote', 'confirm'
+                        'open_time', 'open', 'high', 'low', 'close', 'volume_btc',
+                        'volume', 'volCcyQuote', 'confirm'
                     ])
                     df['open_time'] = pd.to_datetime(df['open_time'].astype(int), unit='ms')
                     # Convert to GMT+8
                     df['time_gmt8'] = df['open_time'] + pd.Timedelta(hours=8)
-                    for col in ['open', 'high', 'low', 'close']:
+                    for col in ['open', 'high', 'low', 'close', 'volume']:
                         df[col] = df[col].astype(float)
                     # Sort ascending (OKX returns newest first)
                     df = df.sort_values('time_gmt8')
@@ -425,6 +425,9 @@ if klines_df is not None and not klines_df.empty:
     for col in ['Open', 'High', 'Low', 'Close', 'Volume']:
         candle_df[col] = pd.to_numeric(candle_df[col], errors='coerce')
 
+    # Convert volume to millions (USDT)
+    candle_df['VolumeMil'] = candle_df['Volume'] / 1_000_000
+
     # Determine candle color (green for up, red for down)
     candle_df['Color'] = candle_df.apply(lambda x: 'green' if x['Close'] >= x['Open'] else 'red', axis=1)
 
@@ -453,7 +456,7 @@ if klines_df is not None and not klines_df.empty:
             alt.Tooltip('High:Q', title='High', format='$,.2f'),
             alt.Tooltip('Low:Q', title='Low', format='$,.2f'),
             alt.Tooltip('Close:Q', title='Close', format='$,.2f'),
-            alt.Tooltip('Volume:Q', title='Volume', format=',.0f')
+            alt.Tooltip('VolumeMil:Q', title='Vol (M USDT)', format=',.2f')
         ]
     )
 
@@ -468,7 +471,7 @@ if klines_df is not None and not klines_df.empty:
             alt.Tooltip('High:Q', title='High', format='$,.2f'),
             alt.Tooltip('Low:Q', title='Low', format='$,.2f'),
             alt.Tooltip('Close:Q', title='Close', format='$,.2f'),
-            alt.Tooltip('Volume:Q', title='Volume', format=',.0f')
+            alt.Tooltip('VolumeMil:Q', title='Vol (M USDT)', format=',.2f')
         ]
     )
 
@@ -478,11 +481,11 @@ if klines_df is not None and not klines_df.empty:
     # === VOLUME CHART ===
     volume_chart = alt.Chart(candle_df).mark_bar().encode(
         x=alt.X('Time:T', title='Time (GMT+8)', axis=alt.Axis(format='%H:%M', labelAngle=-45)),
-        y=alt.Y('Volume:Q', title='Volume (USDT)', axis=alt.Axis(format='~s')),
+        y=alt.Y('VolumeMil:Q', title='Volume (M USDT)'),
         color=alt.Color('Color:N', scale=alt.Scale(domain=['green', 'red'], range=['#00d4aa', '#ff4d4d']), legend=None),
         tooltip=[
             alt.Tooltip('Time:T', title='Time', format='%Y-%m-%d %H:%M'),
-            alt.Tooltip('Volume:Q', title='Volume', format=',.0f')
+            alt.Tooltip('VolumeMil:Q', title='Vol (M USDT)', format=',.2f')
         ]
     ).properties(height=100)
 
@@ -506,8 +509,8 @@ if klines_df is not None and not klines_df.empty:
     # Show price range info
     high_24h = candle_df['High'].max()
     low_24h = candle_df['Low'].min()
-    total_volume = candle_df['Volume'].sum()
-    st.caption(f"24h High: ${high_24h:,.2f} | 24h Low: ${low_24h:,.2f} | Range: ${high_24h - low_24h:,.2f} | Total Volume: {total_volume:,.0f} USDT")
+    total_volume_mil = candle_df['VolumeMil'].sum()
+    st.caption(f"24h High: ${high_24h:,.2f} | 24h Low: ${low_24h:,.2f} | Range: ${high_24h - low_24h:,.2f} | Total Volume: {total_volume_mil:,.2f}M USDT")
 else:
     st.warning(f"Could not fetch price chart: {klines_error}")
 

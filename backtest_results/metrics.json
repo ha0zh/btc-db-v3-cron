@@ -19,7 +19,14 @@
     "Trades_3m": 19,
     "PnL_3m": -3971.0
   },
-  "live_position": null,
+  "live_position": {
+    "variant": "0.50% stop, ATR\u00d73.0",
+    "entry_time": "2026-01-16 03:00:00",
+    "position": "short",
+    "entry_price": 95356.0,
+    "stop_price": 95833.0,
+    "tp_price": 93493.0
+  },
   "equity_curve": [
     1338055.7532774368,
     1346596.6034962302,
@@ -522,6 +529,6 @@
     1619245.9786667433,
     1614245.9786667433
   ],
-  "last_updated": "2026-01-16 03:02:29 UTC",
-  "data_latest_timestamp": "2026-01-16 11:00:00"
+  "last_updated": "2026-01-16 04:02:35 UTC",
+  "data_latest_timestamp": "2026-01-16 12:00:00"
 }
